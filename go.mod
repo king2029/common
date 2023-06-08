@@ -1,4 +1,4 @@
-module common
+module github.com/mikephone2028/common
 
 go 1.18
 
