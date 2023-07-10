@@ -3,10 +3,11 @@ package logger
 import (
 	"errors"
 	"fmt"
+	"os"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
-	"os"
 )
 
 var logger *Logger
@@ -76,18 +77,22 @@ func initLogger(config *Config) error {
 
 func Debug(str string, args ...zap.Field) {
 	logger.writer.Debug(str, args...)
+	fmt.Println(str)
 }
 
 func Info(str string, args ...zap.Field) {
 	logger.writer.Info(str, args...)
+	fmt.Println(str)
 }
 
 func Warn(str string, args ...zap.Field) {
 	logger.writer.Warn(str, args...)
+	fmt.Println(str)
 }
 
 func Error(str string, args ...zap.Field) {
 	logger.writer.Error(str, args...)
+	fmt.Println(str)
 }
 
 func Debugf(str string, args ...interface{}) {
@@ -95,24 +100,28 @@ func Debugf(str string, args ...interface{}) {
 		return
 	}
 	logger.sugar.Debugf(fmt.Sprintf(str, args...))
+	fmt.Println(str)
 }
 func Infof(str string, args ...interface{}) {
 	if logger.level > zapcore.InfoLevel {
 		return
 	}
 	logger.sugar.Infof(fmt.Sprintf(str, args...))
+	fmt.Println(str)
 }
 func Warnf(str string, args ...interface{}) {
 	if logger.level > zapcore.WarnLevel {
 		return
 	}
 	logger.sugar.Warnf(fmt.Sprintf(str, args...))
+	fmt.Println(str)
 }
 func Errorf(str string, args ...interface{}) {
 	if logger.level > zapcore.ErrorLevel {
 		return
 	}
 	logger.sugar.Errorf(str, args...)
+	fmt.Println(str)
 }
 
 func Sync() error {
